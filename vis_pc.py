@@ -8,7 +8,7 @@ import numpy as np
 
 def main():
     pcd_path = \
-        'dl_challenge/8b061a8b-9915-11ee-9103-bbb8eae05561/pc.npy'
+        'dl_challenge/133/pc.npy'
     # pcd_npy = np.load(pcd_path)
     # print(pcd_npy.shape)
     # pcd_npy = pcd_npy.transpose((1, 2, 0))  # (height, width, channels) -> (height, width, 3)

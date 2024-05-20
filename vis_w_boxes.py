@@ -1,18 +1,22 @@
 import open3d as o3d
 import numpy as np
 
-def visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_file):
+def visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_file, index=0):
     # Load the point cloud from the npy file
     point_cloud = np.load(point_cloud_file)
+    # clamp 3rd channel to 1.2
+    point_cloud[2,:,:] = np.clip(point_cloud[2,:,:], 0.8, 1.3)
+    point_cloud_og_shape = point_cloud.shape
     # Reshape the point cloud array to (N, 3) format
     point_cloud = np.transpose(point_cloud, (1, 2, 0)).reshape(-1, 3)
     # only leave points of z between 0 and 1.5
-    point_cloud = point_cloud[(point_cloud[:, 2] > 0) & (point_cloud[:, 2] < 1.5)]
+    # point_cloud = point_cloud[(point_cloud[:, 2] > 0) & (point_cloud[:, 2] < 1.5)]
     
     # Create an Open3D point cloud object
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(point_cloud)
-    pcd, _ = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+    # pcd, _ = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
+
 
 
 
@@ -66,7 +70,9 @@ def visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_fi
     ctr.add_geometry(bbox_lines_set)
     ctr.get_view_control().set_front([0, 0, -1])
     ctr.get_view_control().set_up([0, -1, 0])
-    ctr.run()
+    # save the view
+    ctr.capture_screen_image(f'pcl_pics/{index:03d}.png', do_render=True)
+    # ctr.run()
     ctr.destroy_window()
     # Visualize the point cloud and bounding boxes
     # o3d.visualization.draw_geometries([pcd, bbox_lines_set])
@@ -74,12 +80,12 @@ def visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_fi
 
 def main():
 
-    for i in range(0, 199):
-        # i=1
+    for i in range(1, 199):
+        # i=12
         point_cloud_file = f'dl_challenge/{i:03d}/pc.npy'
         bounding_boxes_file = f'dl_challenge/{i:03d}/bbox3d.npy'
         print(f'currently showing number {i:03d}')
-        visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_file)
+        visualize_point_cloud_and_bounding_boxes(point_cloud_file, bounding_boxes_file,i)
         # break
 
 if __name__ == "__main__":
