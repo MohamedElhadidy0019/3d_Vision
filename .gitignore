@@ -3,3 +3,14 @@
 *.xz
 *.png
 *.onnx
+*.txt
+runs/
+yolo_rgb/*
+yolo_ds/*
+yolo_hvz/*
+yolo_ds_hvz/*
+yolo_ds_hvz_mini/*
+yolo_ds_rgbd/*
+*.pyc
+*.pt
+*.pth
