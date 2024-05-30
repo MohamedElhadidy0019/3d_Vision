@@ -11,7 +11,7 @@ def rgb_to_hvd(rgb_path, pc_path, folder_path):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
     pc = np.load(pc_path)
-    z = pc[0]
+    z = pc[2]
     z = np.clip(z, 0.8, 1.3)
 
     h_norm = h / 180.0
