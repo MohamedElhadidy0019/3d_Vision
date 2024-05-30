@@ -184,13 +184,13 @@ class YOLOSeg:
 
 if __name__ == '__main__':
 
-    model_path = "/home/mohamed/repos/3d_Vision/yolo_rgb/train14/weights/best.onnx"
+    # model_path = "/home/mohamed/repos/3d_Vision/yolo_rgb/train14/weights/best.onnx"
     model_path = "/home/mohamed/repos/3d_Vision/model_quantized_infer.onnx"
 
     # Initialize YOLOv8 Instance Segmentator
     yoloseg = YOLOSeg(model_path, conf_thres=0.3, iou_thres=0.5)
 
-    img_path = '/home/mohamed/repos/3d_Vision/yolo_ds/val/images/190.jpg'
+    img_path = '/home/mohamed/repos/3d_Vision/yolo_ds/val/images/198.jpg'
     img = cv2.imread(img_path)
 
     # Detect Objects
